@@ -1,0 +1,38 @@
+
+@font-face {
+    font-family: 'NeueHaas';
+    src: url(./fonts/NeueHaasDisplay-Light.woff2) format("woff2");
+    font-weight: light;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'NeueHaas';
+    src: url(./fonts/NeueHaasDisplay-Roman.woff2) format("woff2");
+    font-weight: 600;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'NeueHaas';
+    src: url(./fonts/NeueHaasDisplay-Mediu.woff2) format("woff2");
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'NeueHaas';
+    src: url(./fonts/NeueHaasDisplay-Bold.woff2);
+    font-weight: 800;
+    font-display: swap;
+}
+
+.grain{
+    z-index: 99999999999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100%;
+    pointer-events: none;
+    opacity: .070;
+    background-image: url(./img/grain-background.png);
+    background-position: center center;
+}

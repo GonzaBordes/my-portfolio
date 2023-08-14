@@ -1,0 +1,96 @@
+footer{
+    border-top: 3px solid black;
+}
+
+footer span,
+footer a{
+    display: block;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+footer a{
+    display: inline;
+}
+
+footer span:nth-child(2){
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+footer .container{
+    display: grid;
+    gap: .3rem;
+    padding-block: 1rem;
+}
+
+#contacto h2 > span{
+    display: block;
+    font-weight: bold;
+}
+
+#contacto{
+    position: relative;
+    z-index: -1;
+}
+
+#contacto .container{
+    display: grid;
+    gap: 3rem;
+}
+
+#contacto .right-side ul{
+    display: grid;
+    gap: 1rem;
+}
+
+
+#contacto a{
+    color: rgb(66, 66, 66);
+    font-size: 1.2rem;
+}
+
+#contacto h4{
+    font-size: 1.5rem;
+    background: linear-gradient(33deg, rgb(92, 202, 164) 5%, rgba(204,148,224,1) 30%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+@media screen and (min-width: 760px) {
+    footer .container{
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        padding-block: .3rem;
+    }
+
+    footer span,
+    footer a{
+        font-size: 1rem;
+    }
+
+    footer .container span:nth-child(2){
+        text-align: center;
+        font-size: 2.5rem;
+    }
+
+    footer .container span:nth-child(3){
+        text-align: right;
+    }
+
+    #contacto h4{
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #323232;
+    }
+
+}
+@media screen and (min-width: 920px) {
+    #contacto .container{
+        grid-template-columns: 1.6fr 1fr;
+        align-items: center;
+    }
+
+}
+
