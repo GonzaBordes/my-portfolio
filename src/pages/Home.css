@@ -1,10 +1,8 @@
 
-
-
 /* HERO */
 
 #hero{
-    padding-top: 9rem;
+    padding-top: 11rem;
     padding-bottom: 0;
 }
 
@@ -74,7 +72,12 @@ width: auto;
     justify-content: center;
 }
 
+.icon-list{
+    overflow: hidden;
+}
+
 /* FEATURED PROJECTS */
+
 
 #featured-projects ul{
     display: grid;
@@ -86,8 +89,8 @@ width: auto;
     display: grid;
     gap: .7rem;
     position: relative;
+    overflow: hidden;
 }
-
 
 #featured-projects h2{
     margin-bottom: 1.5rem;
@@ -98,11 +101,26 @@ width: auto;
     gap: 2rem;
     justify-content: unset!important;
     align-items: center;
+    position: relative;
 }
 
-.project-details h3{
+h3 .char{
+    color: #d1d1d1;
+}
+
+.char{
+    font-weight: 600;
+}
+
+.project-details h3,
+.project-details span{
     order: 2;
-    font-size: 1.5rem!important;
+    font-size: 2rem!important;
+}
+
+.project-details h3,
+.project-details span{
+    line-height: 1;
 }
 
 #featured-projects li img{
@@ -111,27 +129,38 @@ width: auto;
     width: 25rem;
     border-radius: 15px;
     z-index: 99;
+    transform: translateY(100%);
     opacity: 0;
-    transition: .5s ease;
+    right: 0;
+    top: -2rem;
+    transition: .35s;
 }
-
-
-
 
 #featured-projects a{
     padding-block: 1.5rem;
-    border-bottom: 2px solid black;  
 }
 
 #featured-projects a:hover{
     transition: 300ms;
 }
 
-#featured-projects a:hover h3{
-    background: #97FFDA;
-    background: linear-gradient(to right, #97FFDA 10%, #CC94E0 90%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+#featured-projects .line-container{
+    overflow: visible!important;
+}
+
+#featured-projects .project-details span{
+    
+    position: absolute;
+    transform: translateY(100%);
+    text-transform: uppercase;
+    display: block;
+}
+
+.horizontal-bar{
+    width: 100%;
+    height: 1px;
+    background-color: #ababab;
+    transform-origin: left;
 }
 
 /* TABS SECTION */
@@ -217,20 +246,27 @@ width: auto;
     gap: 1.5rem;
 }
 
-.tabs a{
+.tabs button{
     border-bottom: 3px solid grey;
     padding-bottom: 1.5rem;
     display: flex;
     justify-content: space-between;
+    background-color: transparent;
+    outline: 0;
+    border-left: none;
+    border-top: 0;
+    border-right: 0;
+    cursor: pointer;
+    align-items: center;
 }
 
-.tabs a.active{
+.tabs button.active{
     border-image-slice: 1;
     opacity: 1;
     border-image-source: linear-gradient(33deg, rgba(151,255,218,1) 17%, rgba(204,148,224,1) 100%);
 }
 
-.tabs a img{
+.tabs button img{
     width: 1.7rem;
     opacity: 0;
     position: relative;
@@ -238,23 +274,22 @@ width: auto;
     transform: translateX(-10px);
 }
 
-.tabs a.active img{
+.tabs button.active img{
     opacity: 1;
     right: 0;
     transform: translateX(0);
-
 }
 
 .tab-title{
     pointer-events: none;
 }
 
-#tabs-section .tabs a.active span{
+#tabs-section .tabs button.active span{
     color: white;
     transition: 300ms 200ms;
 }
 
-#tabs-section .tabs a.active img{
+#tabs-section .tabs button.active img{
     opacity: 1;
 }
 
@@ -263,8 +298,9 @@ width: auto;
         font-size: 2rem;
     }
 
-    #featured-projects h3{
-        font-size: 2rem!important;
+    #featured-projects h3,
+    #featured-projects .project-details span{
+        font-size: 3rem!important;
     }
 }
 
@@ -287,6 +323,7 @@ width: auto;
 
     #featured-projects li:hover img{
         opacity: 1;
+        transform: translateY(0);
     }
 
     #tabs-section .main-wrapper{
@@ -301,7 +338,7 @@ width: auto;
         grid-template-columns: none;
     }
 
-    .tabs a img{
+    .tabs button img{
         width: 2.3rem;
     }
 
@@ -327,11 +364,11 @@ width: auto;
     .right-content p{
         font-size: 1.7rem;
         padding-right: 15%;
+        text-wrap: balance;
     }
 
     #featured-projects a{
-        padding-block: 2rem;
-        border-bottom: 3px solid rgb(183, 183, 183);
+        padding-block: 3rem;
         transition: 1s;
     }
 
@@ -339,8 +376,9 @@ width: auto;
         border-color: rgb(92, 91, 91);
     }
 
-    #featured-projects a h3{
-        font-size: 2.5rem!important;
+    #featured-projects a h3,
+    #featured-projects .project-details span{
+        font-size: 3.5rem!important;
         font-weight: 700;
     }
 

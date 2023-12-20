@@ -11,7 +11,6 @@ function Footer() {
                 </div>   
             </footer>
         </>
-        
      );
 }
 

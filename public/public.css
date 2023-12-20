@@ -26,7 +26,7 @@
 
 .grain{
     z-index: 99999999999;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     width: 100vw;

@@ -1,6 +1,7 @@
 import "./Header.css"
 
-function Header() {
+function Header({lenis}) {
+    
     // const headerRef = useRef(null)
     // const burgerRef = useRef(null)
     // const navRef = useRef(null)
@@ -23,7 +24,16 @@ function Header() {
 
     // useEffect(() => {
     //     burgerClick ? burgerRef.current.play() : burgerRef.current.reverse()
-    // }, [burgerClick])    
+    // }, [burgerClick])  
+    
+    lenis.on('scroll', ({scroll}) => {
+        let header = document.querySelector('header')        
+        if(scroll > 0){
+            header.classList.add('scrolled')
+        }else{
+            header.classList.remove('scrolled')
+        }
+      })
 
     return ( 
         <header data-scroll-sticky>            
@@ -46,14 +56,20 @@ function Header() {
                 </div>
                 <nav>
                     <ul>
-                        <li className="overflow-box">
-                            <div><a href="#featured-projects">Trabajos</a></div>
+                        <li onClick={() => lenis.scrollTo('#featured-projects',{offset: -30})} className="overflow-box">
+                            <div><a className="slide-link" href="#featured-projects">
+                                <span>Works</span><span>Works</span>                                
+                            </a></div>
                         </li>
-                        <li className="overflow-box">
-                            <div><a href="#tabs-section">Sobre mi</a></div>
+                        <li onClick={() => lenis.scrollTo('#tabs-section',{offset: -30})} className="overflow-box">
+                            <div><a className="slide-link" href="#tabs-section">
+                                <span>About</span><span>About</span>   
+                                </a></div>
                         </li>
-                        <li className="overflow-box">
-                            <div><a href="#contacto">Contacto</a></div>
+                        <li onClick={() => lenis.scrollTo('#tabs-section',{offset: document.querySelector('#tabs-section').offsetTop})} className="overflow-box bottom-link">
+                            <div><a className="slide-link" href="#contacto">
+                                    <span>Contact</span><span>Contact</span>
+                                </a></div>
                         </li>
                     </ul>                    
                 </nav>

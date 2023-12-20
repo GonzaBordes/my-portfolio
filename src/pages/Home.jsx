@@ -17,15 +17,21 @@ import reactLogo from '../img/react-logo.svg'
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger"
+import SplitType from "split-type"
 
 // COMPONENTS
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 import ProjectsList from "../components/ProjectsList"
 
-function Home() {
+function Home({lenis}) {
 
     gsap.registerPlugin(ScrollTrigger)
+
+    lenis.on('scroll', ({scroll}) => {
+        const scrollIcons = document.querySelector('.locomotive-list')
+        scrollIcons.style = `transform: translateX(${scroll}px)`
+      })
 
     // DECLARING CONTENT SECTION REFS
     const heroRef = useRef(null)
@@ -35,9 +41,30 @@ function Home() {
     
     /////////////////////////////////// USE EEFECT START //////////////////////////////////////
     useEffect(() => {
-        
+
+        const linesSplitType = new SplitType('.right-content p', {
+            type: 'words',
+          });
+          
+          // Dividir el texto en líneas
+          const lines = linesSplitType.lines;
+
+          console.log(lines)
+
+          var liness = document.querySelectorAll('.line');
+    
+          liness.forEach(function(line) {
+              var lineContainer = document.createElement('div');
+              lineContainer.className = 'line-container';
+              lineContainer.style.overflow = 'hidden';
+      
+              // Mover el elemento .line dentro del nuevo contenedor
+              line.parentNode.insertBefore(lineContainer, line);
+              lineContainer.appendChild(line);
+          });
+ 
         // TABS ------------------------------------------------------------------
-        let tabLinks = tabsSectionRef.current.querySelectorAll('.tabs a')
+        let tabLinks = tabsSectionRef.current.querySelectorAll('.tabs button')
         let contentBoxes = tabsSectionRef.current.querySelectorAll('.content-box')
 
         tabLinks.forEach((link, index) => {
@@ -75,21 +102,28 @@ function Home() {
         // GSAP ANIMATIONS ----------------------------------------------------------
 
         // HERO ANIMATIONS
-        const heroTl = gsap.timeline()
+        const heroTl = gsap.timeline({delay: 1.4})
 
         const heading = heroRef.current.querySelector('h2')
         const paragraph = heroRef.current.querySelector('.left-content p')
         const link = heroRef.current.querySelector('.left-content a')
-        const rightContent = heroRef.current.querySelector('.right-content')
         const rightContentImg = heroRef.current.querySelector('.right-content img')
         const iconList = heroRef.current.querySelector('#hero ul')
         
         heroTl.fromTo(heading, {y: '100%'},{y:0, duration:.5, ease:"Expo.Ease", delay: .3})
         heroTl.fromTo(paragraph, {y: '100%'},{y:0, ease:"Expo.Ease",duration:.5}, '-=.25')
         heroTl.fromTo(link, {y: '100%'},{y:0,ease:"Expo.Ease", duration:.5}, '-=.35')
-        heroTl.fromTo(rightContent, {opacity: 0},{opacity: 1 , duration: 1}, '-=.1')
-        heroTl.fromTo(rightContentImg, {opacity: 0, y: 30},{opacity: 1, y:0 , duration: 1}, '-=.5')
-        heroTl.fromTo(iconList, {opacity: 0, y: -30},{opacity: 1, y:0 , duration: 1}, '-=1')
+        // Utiliza el método fromTo para animar los elementos con la clase .line
+        heroTl.fromTo(lines, {
+            y: "100%"
+        }, {
+            y: 0,
+            stagger: 0.1, // Aplica un retraso de 0.1 segundos entre cada elemento
+            duration: 1,
+            ease: "expo.out", // Puedes ajustar la duración de la animación
+        },'-=.2');
+        heroTl.fromTo(rightContentImg, {opacity: 0, y: 30},{opacity: 1, y:0 , duration: 1}, '-=.6')
+        heroTl.fromTo(iconList, {opacity: 0, y: -30},{opacity: 1, y:0 , duration: 1}, '-=.9')
 
         // MOUSE FOLLOW ANIMATION
 
@@ -103,17 +137,15 @@ function Home() {
         gsap.fromTo(projectsH2Paragraph, {y: '115%'},{y:0, duration: .5, delay: .2, ease:"Expo.Ease",scrollTrigger:{
             trigger: projectsH2Paragraph
         }})
-        gsap.fromTo(projectsGrid, {opacity: 0, y: 80},{opacity: 1, y:0, delay: .5, duration: 1.3, scrollTrigger:{
-            trigger: projectsGrid
-        }})
+        
 
         // TABS ANIMATIONS
 
         const tabsH2 = tabsSectionRef.current.querySelector('h2')
         const contentWrapper = tabsSectionRef.current.querySelector('.main-wrapper')
-        const tabOne = tabsSectionRef.current.querySelector('.tabs a:first-of-type')
-        const tabTwo = tabsSectionRef.current.querySelector('.tabs a:nth-of-type(2)')
-        const tabThree = tabsSectionRef.current.querySelector('.tabs a:nth-of-type(3)')
+        const tabOne = tabsSectionRef.current.querySelector('.tabs button:first-of-type')
+        const tabTwo = tabsSectionRef.current.querySelector('.tabs button:nth-of-type(2)')
+        const tabThree = tabsSectionRef.current.querySelector('.tabs button:nth-of-type(3)')
 
         gsap.fromTo(tabsH2, {y: '115%'},{y:0, duration:.5,  ease:"Expo.Ease",scrollTrigger:{
             trigger: tabsH2
@@ -150,9 +182,9 @@ function Home() {
 
     return ( 
         <>
-            <Header/>
-            <main data-scroll-section>
-                <section data-scroll ref={heroRef} id="hero">
+            <Header lenis={lenis}/>
+            <main>
+                <section ref={heroRef} id="hero">
                     <div className="container">
                         <div className="left-content">
                             <div className="overflow-box">
@@ -162,16 +194,16 @@ function Home() {
                                 <p>Web Developer.</p>
                             </div>
                             <div className="overflow-box">
-                                <a href="#featured-projects" className="body-link">Ver proyectos</a>
+                                <a onClick={() => lenis.scrollTo('#featured-projects',{offset: -30})} href="#featured-projects" className="body-link">Ver proyectos</a>
                             </div>
                         </div>
                         <div className="right-content">
-                            <p>Hola, me llamo Gonzalo. Soy un entusiasta del desarrollo y diseño web front end. Busco brindar experiencias web agradables para el usuario.</p>
+                            <p>Hello, my name is Gonzalo. I am a front-end web development and design enthusiast. I aim to create enjoyable web experiences for users.</p>
                             <img data-scroll data-scroll-speed="3" className="hero-circle" src={heroCircle} alt="Imagen vectorial que me representa" />
                         </div>                        
                     </div>
-                    <ul>
-                        <div data-scroll data-scroll-direction="horizontal" data-scroll-speed="5" className="locomotive-list">
+                    <ul className="icon-list">
+                        <div className="locomotive-list">
                         <div>
                                 <li>
                                     <img src={gitHubIcon} alt="" />
@@ -238,10 +270,10 @@ function Home() {
                 <section ref={projectsRef} data-scroll id="featured-projects">
                     <div className="container">
                         <div className="overflow-box">
-                            <h2>Proyectos<span className="green-dot">.</span></h2>
+                            <h2>Projects<span className="green-dot">.</span></h2>
                         </div>
                         <div className="overflow-box">
-                            <p className="subtitle">Estos son algunos de mis trabajos seleccionados para que conozcas un poco más mi perfil.</p>
+                            <p className="subtitle">Here are some of my selected works for you to get to know my profile a little better.</p>
                         </div>
                         <ProjectsList/>                        
                         
@@ -258,78 +290,78 @@ function Home() {
                 <section data-scroll ref={tabsSectionRef} id="tabs-section">
                     <div className="container">
                         <div className="overflow-box">
-                            <h2>Como trabajo<span className="green-dot">.</span></h2>
+                            <h2>How i work<span className="green-dot">.</span></h2>
                         </div>                       
                         <div className="main-wrapper">
                             <div className="content-wrapper">
                                 <div data-tab="tab1" className="active content-box">
-                                    <p>Trato de conectarme con proyectos que me motiven e impulsen a dar lo mejor de mi.</p>
-                                    <p>También de brindar soluciones digitales sin olvidarme de las necesidades del cliente.</p>
-                                    <a href="#contacto" className="body-link">Hablemos</a>
+                                    <p>I seek to connect with projects that motivate me and drive me to give my best.</p>
+                                    <p> also aim to provide digital solutions without forgetting the client's needs.</p>
+                                    <a onClick={() => lenis.scrollTo('#contacto',{offset: -30})} href="#contacto" className="body-link">Let's talk</a>
                                 </div>
                                 <div data-tab="tab2" className="content-box">
-                                    <p>Me comprometo con las propuestas y con el objetivo que se busca en cada proyecto.</p>
-                                    <p>Me gusta trabajar en equipo mediante la escucha y el intercambio activo.</p>
-                                    <a href="#contacto" className="body-link">Hablemos</a>
+                                    <p>I am committed to the proposals and the objectives sought in each project.</p>
+                                    <p>Enthusiastic about teamwork, I actively listen and engage in open communication to contribute effectively.</p>
+                                    <a onClick={() => lenis.scrollTo('#contacto',{offset: -30})} href="#contacto" className="body-link">Let's talk</a>
                                 </div>
                                 <div data-tab="tab3" className="content-box">
-                                    <p>Me especialicé en el desarrollo front-end utilizando tecnologías como HTML, CSS, JavaScript, React, Vue, Tailwind y GSAP.</p>
-                                    <p>Además, Tengo amplios conocimientos de prototipado y diseño utilizando Figma y Adobe xd.</p>
-                                    <a href="#contacto" className="body-link">Hablemos</a>
+                                    <p>I specialized in front-end development using technologies such as HTML, CSS, JavaScript, React, Vue, Tailwind, and GSAP. Additionally, I have experience in the WordPress development environment.</p>
+                                    <p>Furthermore, I have extensive knowledge of prototyping and design using Figma and Adobe XD.</p>
+                                    <a onClick={() => lenis.scrollTo('#contacto',{offset: -30})} href="#contacto" className="body-link">Let's talk</a>
                                 </div>
                             </div>
                             <div className="tabs">
-                                <a data-tab="tab1" href="#" className="active">
-                                    <span className="tab-title">Motivación</span>
+                                <button dbuttonta-tab="tab1" href="#" className="active">
+                                    <span className="tab-title">Motivation</span>
                                     <img src={tabsArrow} alt="" />
-                                </a>
-                                <a data-tab="tab2" href="#">
-                                    <span className="hidden tab-title">Compromiso</span>
+                                </button>
+                                <button data-tab="tab2" href="#">
+                                    <span className="hidden tab-title">Commitment</span>
                                     <img src={tabsArrow} alt="" />
-                                </a>
-                                <a data-tab="tab3" href="#">
+                                </button>
+                                <button data-tab="tab3" href="#">
                                     <span className="hidden tab-title">Stack</span>
                                     <img src={tabsArrow} alt="" />
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </section>
-                <section ref={contactSectionRef} id="contacto">
-                <div className="container">
-                    <div className="left-side">
-                        <div className="overflow-box">
-                            <h2>¿Querés que hablemos?
-                            </h2>
-                        </div>                        
-                        {/* <a href="#" className="body-link">contacto</a> */}
-                    </div>
-                    <div className="right-side">
-                        <ul>
-                            <li>
-                                <div className="overflow-box">
-                                    <h4>Email</h4>
-                                </div>                                
-                                <a target={'blank'} href='mailto:gonzalobordes@gmail.com' >gonzalobordes@gmail.com</a>
-                            </li>
-                            <li>
-                                <div className="overflow-box">
-                                    <h4>Linkedin</h4>
-                                </div>                               
-                                <a target={'blank'} href='https://www.linkedin.com/in/gonzalo-bordes/'>/gonzalo-bordes</a>
-                            </li>
-                            <li>
-                                <div className="overflow-box">
-                                    <h4>Instagram</h4>
-                                </div>                               
-                                <a target={'blank'} href='https://www.instagram.com/gonzbordes/'>@gonzbordes</a>
-                            </li>
-                        </ul>
-                    </div>                    
-                </div>                
-            </section>   
-            </main>            
-            <Footer/>                    
+                </main>                  
+                    <section ref={contactSectionRef} id="contacto">
+                    <div className="container">
+                        <div className="left-side">
+                            <div className="overflow-box">
+                                <h2>Up for a chat?
+                                </h2>
+                            </div>                        
+                            {/* <a href="#" className="body-link">contacto</a> */}
+                        </div>
+                        <div className="right-side">
+                            <ul>
+                                <li>
+                                    <div className="overflow-box">
+                                        <h4>Email</h4>
+                                    </div>                                
+                                    <a target={'blank'} href='mailto:gonzalobordes@gmail.com' >gonzalobordes@gmail.com</a>
+                                </li>
+                                <li>
+                                    <div className="overflow-box">
+                                        <h4>Linkedin</h4>
+                                    </div>                               
+                                    <a target={'blank'} href='https://www.linkedin.com/in/gonzalo-bordes/'>/gonzalo-bordes</a>
+                                </li>
+                                <li>
+                                    <div className="overflow-box">
+                                        <h4>Instagram</h4>
+                                    </div>                               
+                                    <a target={'blank'} href='https://www.instagram.com/gonzbordes/'>@gonzbordes</a>
+                                </li>
+                            </ul>
+                        </div>                    
+                    </div>                
+                </section>              
+                <Footer/>                   
         </>
      );
 }

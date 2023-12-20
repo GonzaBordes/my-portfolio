@@ -6,7 +6,8 @@ import sofiImg from "../img/sofi-rueda-pc.webp"
 import odaEstudioImg from "../img/oda-estudio-pc.webp"
 import laderImg from "../img/lader-pc.webp"
 import cryptoImg from "../img/crypto-pc.webp"
-import nicoImg from "../img/nico-pc.webp"  
+import nicoImg from "../img/nico-pc.webp"
+import cartImg from "../img/shopping-cart.webp"    
 
 export const data = 
 
@@ -18,6 +19,14 @@ export const data =
         year: 2023,
         img: nicoImg,
         link: "https://nicofullin.netlify.app/"
+    },
+    {
+        id: 'shopping-cart',
+        slug: "shopping-cart",
+        name: "Shopping Cart",
+        year: 2023,
+        img: cartImg,
+        link: "https://gonza-context-cart.netlify.app/"
     },
     {
         id: 0,
