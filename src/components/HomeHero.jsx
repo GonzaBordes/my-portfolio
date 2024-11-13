@@ -82,7 +82,7 @@ const HomeHero = ({lenis}) => {
                 <div className="overflow-box">
                     <h2  className=" split black-heading-gradient">
                         <span>Front End Development Specialist</span>
-                        <span>With <span>passion</span> and <em>dedications</em></span>
+                        <span>With <span>passion</span> and <em>dedication</em></span>
                     </h2>
                 </div>
                 <div className="right-content">
