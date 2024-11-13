@@ -1,30 +1,44 @@
 import './index.css';
 import "./variables.css";
-// import 'locomotive-scroll/dist/locomotive-scroll.css'
 import Lenis from '@studio-freight/lenis';
-import gsap from 'gsap';
 import Home from './pages/Home';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import useLocoScroll from './hooks/UseLocoScroll';
-import Loader from './components/Loader';
+import { useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { Routes, Route } from 'react-router-dom';
+import SingleProject from './pages/SingleProject';
+
 
 function App() { 
+  const location = useLocation()
 
   const lenis = new Lenis()
 
-  lenis.on('scroll', ScrollTrigger.update)
+  function raf(time) {
+    lenis.raf(time)
+    requestAnimationFrame(raf)
+  }
+  requestAnimationFrame(raf)
 
-  gsap.ticker.add((time)=>{
-    lenis.raf(time * 1000)
+  lenis.on('scroll', ({scroll}) => {
+    let header = document.querySelector('header')        
+    if(scroll > 80){
+        header.classList.add('scrolled')
+    }else{
+        header.classList.remove('scrolled')
+    }
   })
 
-  gsap.ticker.lagSmoothing(0)
+ 
   
   return (
-      <div className="App" data-scroll-container>
-        <Loader />
-        <Home lenis={lenis}/>         
-      </div>          
+      <>
+        <AnimatePresence mode="wait" >  
+          <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home  lenis={lenis} />}></Route>
+                <Route path="/:slug" element={<SingleProject  lenis={lenis} />}></Route>
+          </Routes>
+        </AnimatePresence>                
+      </>          
   )
 }
 

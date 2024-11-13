@@ -1,12 +1,10 @@
 header{
-    border-bottom: 2px solid black;
     padding-block: .5rem;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    background-color: white;
-    z-index: 999;
+    z-index: 99;
     padding-block: 1rem;
 }
 
@@ -73,7 +71,22 @@ header .container{
 
 nav ul{
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
+    align-items: center;
+}
+
+header a{
+    text-transform: uppercase;
+}
+
+header .body-link{
+    margin: 0;
+    padding-block: .3rem;
+}
+
+header .body-link span{
+    font-weight: 700;
+
 }
 
 header.scrolled .logo .green-dot{
@@ -88,6 +101,39 @@ header.scrolled .bordes{
 header.scrolled .word-fragment{
     transform: translateX(-100%);
     opacity: 0;    
+}
+
+.header-line{
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
+    transform-origin: left;
+}
+
+body header  .body-link span,
+body header a span{
+    text-transform: uppercase ;
+    font-weight: 700;
+}
+
+header{
+    transition: background .4s .4s ;
+}
+
+header.scrolled{
+    background: white;
+}
+
+.header-line{
+    left: 0;
+    width: 0;
+    transition: width .7s .1s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+header.scrolled .header-line{
+    width: 100%;
 }
 
 /* BREAKPOINTS */
@@ -112,9 +158,5 @@ header.scrolled .word-fragment{
         display: flex;
     }
 
-    #hero .right-content{
-        display: flex;
-        justify-content: center;
-    }
 } 
 

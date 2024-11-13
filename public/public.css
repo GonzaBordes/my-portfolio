@@ -25,14 +25,14 @@
 }
 
 .grain{
-    z-index: 99999999999;
+    z-index: 99999999999999999999999999999;
     position: fixed;
     left: 0;
     top: 0;
     width: 100vw;
-    height: 100%;
+    height: 100vh;
     pointer-events: none;
     opacity: .070;
-    background-image: url(./img/grain-background.png);
+    background-image: url(./img/grain-background.webp);
     background-position: center center;
 }

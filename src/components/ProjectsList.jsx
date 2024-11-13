@@ -1,69 +1,93 @@
 // DATA
-import { useRef, useEffect } from 'react';
 import {data as projetcs} from '../data/projects.js'
 import SplitType from "split-type"
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
+import { useGSAP } from '@gsap/react';
+
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 
 export default function ProjectsList() {
 
-  const ulRef = useRef()
+  useGSAP(() => {
+    
+    gsap.registerPlugin(ScrollTrigger)
 
-  useEffect(() => {
+    const projectLiAll = document.querySelectorAll('#sticky li')
+    const projectsH2 = document.querySelector('#sticky h2')
+    const projectsH2Paragraph = document.querySelector('#sticky .container .overflow-box > p')
 
-    document.querySelectorAll('#featured-projects ul li a').forEach(link => {
-      let linkH3 = link.querySelector('h3')
-      let linkSpan = link.querySelector('span')
+    gsap.fromTo(projectsH2, {y: '115%'},{y:0, duration:.5,  ease:"Expo.Ease",scrollTrigger:{
+        trigger: projectsH2
+    }})
+    gsap.fromTo(projectsH2Paragraph, {y: '115%'},{y:0, duration: .5, delay: .2, ease:"Expo.Ease",scrollTrigger:{
+        trigger: projectsH2Paragraph
+    }})     
 
-      let splitH3 = new SplitType(linkH3)
-      let splitSpan = new SplitType(linkSpan)
+    projectLiAll.forEach(li => {
 
-      let h3Chars = splitH3.chars
-      let spanChars = splitSpan.chars
+      const entryTl = gsap.timeline({delay: .4})
 
-      gsap.defaults({stagger:0.015,duration:0.35,ease:'power3.easeOut'})
+      // entryTl.fromTo(arrowBox,{scale:0},{scale: 1, ease: 'power4.out', onComplete:() => {
+      //   li.classList.add('animation-complete')
+      // }},'-=.3')
 
-      let tl =gsap.timeline({paused:true})
-      .to(h3Chars,{yPercent:-105})
-      .to(spanChars,{yPercent:-105},0)
-
-      link.addEventListener("mouseenter", function () {
-        tl.play()
+      ScrollTrigger.create({
+        trigger: li,
+        start: 'top 60%',
+        animation: entryTl
       })
-                            
-      link.addEventListener("mouseleave", function () {
-          tl.reverse()
-      })
+
+      const featuredImg = li.querySelector('picture')
+      let h3 = li.querySelector('h3')
+      const bottomContent = li.querySelector('.bottom-content')
+      
+      const bottomTl = gsap.timeline({delay: 0})
+      const h3Split = new SplitType(h3)
+      
+      bottomTl.fromTo(featuredImg,{ opacity: 0,xPercent: 90},{opacity:1,xPercent: 0, duration: .65})      
+      bottomTl.from(h3Split.chars,{opacity: 0, x: 10, duration: .5, stagger: .055},'-=.7')
+      bottomTl.fromTo(bottomContent,{ opacity: 0, x:-60},{x:0,opacity: 1, duration: .45},'-=.8')
+      
+      ScrollTrigger.create({
+        trigger: li,
+        start: 'top 60%',
+        animation: bottomTl
+      })     
     });
-
-    document.querySelectorAll('#featured-projects ul li').forEach(li => {
-      let tl = gsap.timeline({ease:'power3.easeOut', scrollTrigger:{
-        trigger: li
-      }})
-      let bar = li.querySelector('.horizontal-bar')
-      let title = li.querySelector('.project-details h3')
-
-      tl.fromTo(bar,{scaleX:0},{scaleX:1, duration: 1.5, scrollTrigger:{
-        trigger: bar
-      }})
-      tl.fromTo(title, {y:100}, {y:0, duration:.7},"=+.4")
-    })   
-
   }, []);
 
   return (
-    <ul ref={ulRef}>
+    <ul className='project-list'>
         {
             projetcs.map((project) =>{
-                return <li key={project.id}>
-                          <div className="horizontal-bar"></div>
-                          <a target={'_blank'} href={project.link}>
-                              <div className="project-details overflow-box">
-                                  <h3>{project.name}</h3>
-                                  <span>{project.name}</span>
-                              </div>                                                        
-                              <img src={project.img} alt="" />
-                          </a>                               
-                        </li>
+              return  <li  li key={project.id}>
+                        <div className='card' >
+                          <div className='top-content'>
+                            <div>
+                              <div>
+                                <h3>{project.name}</h3>
+                                <p>Lorem ipsum dolor, sit amet consectetur adipisicing.</p>
+                              </div>                              
+                              <div className="bottom-content">
+                                
+                                {/* <div className='project-stack'>
+                                  <span>React</span>
+                                  <span>Firebase</span>
+                                </div> */}
+                                <div className="overflow-box bottom-gradient">
+                                  <Link className='body-link' to={`/${project.slug}`}>View More</Link>
+                                </div> 
+                                
+                              </div>                               
+                            </div>                         
+                          </div> 
+                          <picture>
+                            <source media="(min-width: 1150px)" srcSet={project.img} />
+                            <img className='featured-image' src={project.homeMobileImg} alt="" /> 
+                          </picture>                                                    
+                        </div>                                                    
+                      </li>
             })
         }                  
     </ul>

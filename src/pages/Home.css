@@ -1,9 +1,38 @@
 
+.transition.home span{
+    font-size: 2rem;
+}
+
+
 /* HERO */
 
 #hero{
-    padding-top: 11rem;
+    padding-top: 8rem;
     padding-bottom: 0;
+    overflow: hidden;
+}
+
+#hero h2 .line{
+    overflow: hidden;
+   
+}
+
+#hero .line{
+    text-align: center!important;
+}
+
+#hero h2 .char{
+    line-height: 1;
+}
+
+#hero h2 span{
+    line-height: 1.3;
+}
+
+#hero h2 span span:first-of-type .char{
+    color: var(--rosa);
+    font-weight: 700;
+    font-style: italic;
 }
 
 #hero .container{
@@ -12,104 +41,185 @@
 }
 
 #hero h2{
-    font-size: 15vw;
-    font-weight: 700;
+    font-size: 3.7rem;
 }
 
-#hero .body-link{
-    margin-top: 1.3rem;
+.bottom-gradient .body-link{
+    margin-top: .2rem!important;
+    width: fit-content;
+    background: rgb(56,56,56);
+    background: radial-gradient(circle, rgba(56,56,56,1) 11%, rgba(0,0,0,1) 100%);
+    color: white;
+    border-radius: 2rem;
+    
 }
 
-.left-content p{
+#hero .body-link:not(#single-project .body-link){
+    display: block;
+    margin: auto;
+}
+
+#hero .left-content p{
     font-size: 1.5rem;
+    max-width: 1100px;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .right-content{
     position: relative;
+    margin-bottom: 2rem;
 }
 
-.right-content p{
-    font-size: 1.5rem;
+.right-content .char{
+    font-size: 1.9rem;
 }
 
 .hero-circle{
 position: absolute;
-right: 0%;
-top: 1rem;
 z-index: -10;
 display: block;
 width: auto;
 }
 
-#hero ul{
+.hero-circle{
+    translate: -10rem -10rem;
+    /* scale: .7; */
+    scale: 1.2 !important;
+}
+
+
+.icons-wrapper{
     display: flex;
-    gap: 4rem;
-    padding: 1rem 0;
-    background-color: #3b3b3b;
-    margin-top: 8rem;
-    gap: 5%;
-    justify-content: center;
-}
-
-#hero ul li{
-    display: flex;
-    align-items: center;
-}
-
-#hero ul li img{
-    width: 3rem;
-}
-
-.locomotive-list{
-    display: flex;
-    justify-content: center;
-    gap: 4rem;
-}
-
-.locomotive-list div{
-    display: flex;
-    gap: 4rem;
-    justify-content: center;
-}
-
-.icon-list{
+    gap: 2.5rem;
     overflow: hidden;
+    background-color: #1E1E1E;
+    margin-top: 7rem;
+    position: relative;
+}
+
+.icons-wrapper::before,
+.icons-wrapper::after{
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(239,151,249,1) 21%, rgba(80,250,223,1) 89%, rgba(211,255,248,0) 100%);
+    width: 100%;
+    height: 3.5px;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: block;
+    content: '';
+    position: absolute;
+}
+
+.icons-wrapper::after{
+    bottom: 0;
+    top: unset;
+}
+
+#hero .icon-list{
+    padding: 1rem 0;
+    display: flex;
+    gap: 2.5rem;
+}
+
+#hero .icon-list img{
+    width: 3.1rem;
+    opacity: .8;
+}
+
+.icons-wrapper .icon-list{
+    animation: marqueeAnimation 40s infinite linear;
+}
+
+@keyframes marqueeAnimation {
+    from{
+        transform: translateX(0);
+    }to{
+        transform: translateX(calc(-100% - 2.5rem));
+    }
 }
 
 /* FEATURED PROJECTS */
+ /* Sticky */
+  
+ #sticky{
+    padding-top: 6.5rem;
+  }
 
-
-#featured-projects ul{
+  #sticky .container{
     display: grid;
-    margin-top: 3rem;
-}
+    gap: 5rem;
+  }
+  
+  #sticky p{
+    font-size: 1.2rem;
+  }
+  
+  #sticky .left-content{
+    
+    top: 25%;
+  }
 
-
-#featured-projects ul li a{
+  #sticky ul{
     display: grid;
-    gap: .7rem;
-    position: relative;
+    gap: 3rem;
+  }
+
+  #sticky li{
     overflow: hidden;
+  }
+
+  #sticky li:first-of-type{
+    top: 20%;
+  }
+  #sticky li:nth-child(2){
+    top: 22%;
+  }
+  #sticky li:nth-child(3){
+    top: 24%;
+  }
+  #sticky li:nth-child(4){
+    top: 26%;
+  }
+  #sticky li:nth-child(5){
+    top: 28%;
+  }
+  #sticky li:nth-child(6){
+    top: 30%;
+  }
+
+#sticky li .card{
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1rem;
 }
 
-#featured-projects h2{
-    margin-bottom: 1.5rem;
+#sticky .logo{
+    display: none;
+}
+
+#sticky .project-stack{
+    display: none;
+}
+
+.arrow-box img{
+    transition: .3s;
 }
 
 .project-details{
-    display: flex;
-    gap: 2rem;
-    justify-content: unset!important;
-    align-items: center;
-    position: relative;
-}
-
-h3 .char{
-    color: #d1d1d1;
+    display: grid;
+    gap: 1rem;
 }
 
 .char{
     font-weight: 600;
+}
+
+.featured-image{
+    border-radius: .6rem;
 }
 
 .project-details h3,
@@ -123,57 +233,53 @@ h3 .char{
     line-height: 1;
 }
 
-#featured-projects li img{
-    position: absolute;
-    pointer-events: none;
-    width: 25rem;
-    border-radius: 15px;
-    z-index: 99;
-    transform: translateY(100%);
-    opacity: 0;
-    right: 0;
-    top: -2rem;
-    transition: .35s;
-}
-
-#featured-projects a{
-    padding-block: 1.5rem;
-}
-
-#featured-projects a:hover{
-    transition: 300ms;
-}
-
-#featured-projects .line-container{
-    overflow: visible!important;
-}
-
-#featured-projects .project-details span{
-    
-    position: absolute;
-    transform: translateY(100%);
-    text-transform: uppercase;
-    display: block;
-}
-
 .horizontal-bar{
     width: 100%;
     height: 1px;
     background-color: #ababab;
     transform-origin: left;
+    position: relative;
+    z-index: 9;
+    margin-bottom: .75rem;
 }
+
+.mini-title{
+    color: #ababab;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.gradient-line{
+    position: absolute;
+    bottom: -1px;
+    transform: scaleX(0);
+    transform-origin: left;
+    left: 0;
+    background: rgb(151,255,218);
+    background: linear-gradient(33deg, rgba(151,255,218,1) 27%, rgba(204,148,224,1) 100%);
+    z-index: 9999;
+    height: 1.5px;
+    width: 100%;
+}
+
+#sticky .overflow-box.bottom-gradient{
+   margin: 0;
+   margin-top: 1rem;
+}
+
 
 /* TABS SECTION */
 
 #tabs-section{
     background-color: #1E1E1E;
     color: white;
+    padding-bottom: 7rem;
 }
 
 #tabs-section .main-wrapper{
     display: grid;
     flex-direction: column;
-    gap: 3rem;
+    gap: 10%;
 }
 
 #tabs-section p,
@@ -227,7 +333,6 @@ h3 .char{
 #tabs-section .body-link{
     background: transparent;
     color: white;
-    border: 2px solid  rgba(151,255,218,1);
 }
 
 #tabs-section .tabs span{
@@ -307,12 +412,12 @@ h3 .char{
 /* Breakpoints */
 
 @media screen and (min-width: 720px) {
-    #hero h2{
-        font-size: 5rem;
+    .transition.home span{
+        font-size: 3rem;
     }
 
     #hero .container{
-        grid-template-columns: 1fr 1.2fr;
+        grid-template-columns: 1fr;
         gap: 0rem;
         align-items: center;
     }
@@ -321,10 +426,7 @@ h3 .char{
         font-size: 3.5rem;
     }
 
-    #featured-projects li:hover img{
-        opacity: 1;
-        transform: translateY(0);
-    }
+ 
 
     #tabs-section .main-wrapper{
         grid-template-columns: 1fr 1.3fr;
@@ -345,65 +447,152 @@ h3 .char{
     .content-box .body-link{
         justify-self: end;
     }
+
+    #featured-projects ul{
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+    }
+
+
 }
 
 @media screen and (min-width: 920px) {
 
     #hero p{
-        font-size: 1.8rem!important;
+        font-size: 1.5rem!important;
     }
 
     .hero-circle{
-        top: 4.5rem;
+        top: -25rem!important;
+        left: 50%!important;
     }
 
     #hero h2{
-        font-size: 5rem;
+        font-size: 5.5rem;
     }
 
     .right-content p{
         font-size: 1.7rem;
-        padding-right: 15%;
         text-wrap: balance;
     }
-
-    #featured-projects a{
-        padding-block: 3rem;
-        transition: 1s;
-    }
-
-    #featured-projects a:hover{
-        border-color: rgb(92, 91, 91);
-    }
-
-    #featured-projects a h3,
-    #featured-projects .project-details span{
-        font-size: 3.5rem!important;
-        font-weight: 700;
-    }
-
-    #featured-projects a h3,
-    #featured-projects a p{
-        color: #c7c7c7;
-    }
-
-    #featured-projects a:hover p{
-        color: #000000;
-    }
-
+  
 }
 
 @media screen and (min-width: 1200px) {
     #hero .container{
-        grid-template-columns: 1fr 1.5fr;
+        grid-template-columns: 1fr;
     }
 
     .hero-circle{
-        top: 2rem;
+        top: 20%;
         right: 15%;
+    }
+
+    #sticky {
+        margin-bottom: 5rem;
+    }
+
+    #sticky ul{
+        gap: 20rem;
+    }
+
+    #sticky .container{
+        grid-template-columns: 1fr 1.35fr;
+    }
+
+    #sticky .left-content{
+        position: sticky;
+        top: 20%;
+        height: fit-content;
+    }
+
+    #sticky li{
+        position: sticky;
+        top: 30%;
+        border: 2px solid rgb(102, 102, 102);
+        border-radius: 1.5rem;
+        background-color: white;
+        background-image: url(../img/hero-gradient-2.svg);
+        background-position: 10% 50%;
+    }
+
+    #sticky li .card{
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        overflow: hidden;
+        /* aspect-ratio: 14/7; */
+        min-height: 24rem;
+    }
+
+    #sticky .top-content{
+        padding: 2.5rem;
+    }
+
+    #sticky li p{
+        font-size: 1.2rem!important;
+    }
+
+    #sticky li .featured-image{
+        translate: 10% 10%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top left;
+    }
+
+    #sticky .logo{
+        width: 2rem;
+        height: auto;
+    }
+
+    #sticky .top-content{
+        display: grid;
+        gap: 2rem;
+        padding-right: 0;
+    }
+
+    #sticky .top-content > div{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    #sticky .logo{
+        display: block;
+    }
+
+    #sticky .project-stack{
+        display: flex;
+        gap: 1rem;
+    }
+
+    #sticky .project-stack span{
+        display: block;
+        padding: .1rem 1rem;
+        border-radius: 1rem;
+        border: 1px solid black;
+        font-size: .9rem;
+        margin-top: 1rem;
+    }
+
+    #sticky li h3{
+        font-size: 2.2rem!important;
+    }
+
+    #sticky li h3 .char{
+        font-weight: 700!important;
     }
 }
 
 @media screen and (min-width: 1450px) {
-    
+    #hero{
+        padding-top: 12rem;
+    }
+
+    #hero h2{
+        font-size: 5.5rem;
+    }
+
+    #hero ul{
+        margin-top: 8rem;
+    }
 }
